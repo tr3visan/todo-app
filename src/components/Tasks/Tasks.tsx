@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Trash } from "phosphor-react";
 import { Empty } from "../Empty";
@@ -12,7 +13,6 @@ interface TasksProps {
   qtdTaskCreated: number;
   qtdTasksChecked: number;
   onMarkToChecked: (item: TaskProps) => void;
-  onConfirmDelete: (id: string) => void;
   onDeleteTask: (id: string) => void;
 }
 
@@ -21,7 +21,6 @@ export function Tasks({
   hasTasks,
   qtdTaskCreated,
   qtdTasksChecked,
-  onConfirmDelete,
   onMarkToChecked,
   onDeleteTask,
 }: TasksProps) {
@@ -38,15 +37,15 @@ export function Tasks({
         ) : (
           <ul className={styles.listItems}>
             {tasks.map((item) => {
-              const checked = item.isChecked;
+              const { id, isChecked, content } = item;
 
               return (
-                <li key={item.id} className={styles.listItem}>
+                <li key={id} className={styles.listItem}>
                   <header>
-                    <label htmlFor={`checkbox${item.id}`}>
+                    <label htmlFor={`checkbox${id}`}>
                       <input
                         type="checkbox"
-                        id={`checkbox${item.id}`}
+                        id={`checkbox${id}`}
                         checked={item.isChecked}
                         onChange={() => onMarkToChecked(item)}
                       />
@@ -57,23 +56,15 @@ export function Tasks({
                         transition={{ duration: 0.1 }}
                       ></motion.span>
                     </label>
-                    <p className={!!checked ? styles.line : styles.listText}>
-                      {item.content}
+                    <p className={!!isChecked ? styles.line : styles.listText}>
+                      {content}
                     </p>
                   </header>
+
                   <footer>
-                    <div
-                      id={`boxConfirm-${item.id}`}
-                      className={styles.modalButtons}
-                    >
-                      <button onClick={() => onConfirmDelete(item.id)}>
-                        Sim
-                      </button>
-                      <button onClick={() => onDeleteTask(item.id)}>Não</button>
-                    </div>
                     <motion.button
-                      onClick={() => onDeleteTask(item.id)}
-                      whileHover={{ scale: 1.1 }}
+                      onClick={() => onDeleteTask(id)}
+                      whileHover={{ scale: 1.2 }}
                     >
                       <Trash size={20} />
                     </motion.button>

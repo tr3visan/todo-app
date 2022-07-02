@@ -53,7 +53,7 @@ export function App() {
     setContent("");
   }
 
-  function handleConfirmDeleteTask(id: string) {
+  function handleOnDeleteTask(id: string) {
     const tasksWithoutDeleted = tasks.filter((item) => item.id !== id);
     setTasks(tasksWithoutDeleted);
   }
@@ -65,10 +65,6 @@ export function App() {
       isChecked: !item.isChecked,
     };
     setTasks([...tasksWitoutChecked, newTask]);
-  }
-
-  function handleCloseModalButton(id: string) {
-    console.log("ok");
   }
 
   useEffect(() => {
@@ -98,8 +94,7 @@ export function App() {
         qtdTaskCreated={qtdTaskCreated}
         qtdTasksChecked={qtdTasksChecked}
         onMarkToChecked={handleMarkToChecked}
-        onConfirmDelete={handleConfirmDeleteTask}
-        onDeleteTask={handleCloseModalButton}
+        onDeleteTask={handleOnDeleteTask}
       />
     </main>
   );

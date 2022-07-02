@@ -34,7 +34,7 @@ export function FormTask({
         />
         <motion.button
           type="submit"
-          whileHover={{ scale: 1.3, rotate: 90 }}
+          whileHover={{ scale: 1.2, rotate: 90 }}
           whileTap={{ scale: 0.9 }}
         >
           <PlusCircle size={56} />
