@@ -7,7 +7,7 @@
 <br />
 
 <div align="center">
-  <img src="https://img.shields.io/npm/v/npm" />
+  <img src="https://img.shields.io/badge/npm-8.11.0-red" />
   <img src="https://img.shields.io/badge/node-16.5.1-green" />
   <img src="https://img.shields.io/badge/react-18.0.0-blue" />
   <img src="https://img.shields.io/badge/typescript-3.7.5-blue" />
