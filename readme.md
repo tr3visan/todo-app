@@ -1,12 +1,10 @@
-<p align="center">
-  <img alt="Logo Todo-App" src="https://github.com/tr3visan/todo-app/tree/main/static/brand-todo-app.svg"/>
-</p>
-
 <h1 align="center">Todo App</h1>
 
 <div align="center">
   <strong>It's a simple UI todo-app</strong>
 </div>
+
+<br />
 
 <div align="center">
   <img src="https://img.shields.io/npm/v/npm" />
