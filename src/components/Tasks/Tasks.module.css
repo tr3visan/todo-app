@@ -23,9 +23,10 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  overflow: hidden;
 }
 
-.listContent .listItem div {
+.listContent .listItem header {
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -47,12 +48,10 @@
   border: 0;
   color: var(--gray-300);
   cursor: pointer;
-  transition: all 0.7s ease-in-out;
 }
 
 .listContent .listItem button:hover svg {
   color: var(--danger);
-  transform: scale(1.1);
 }
 
 .listContent .listItem label {
@@ -110,4 +109,42 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.listContent .listItem footer {
+  position: relative;
+}
+
+.listContent .listItem .modalButtons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--gray-700);
+  padding: 0.5rem;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 3;
+  top: -3px;
+  left: 40px;
+  transition: left 0.2s ease-in-out;
+}
+
+.listContent .listItem .modalButtons.show {
+  left: -50px;
+}
+
+.listContent .listItem .modalButtons button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.listContent .listItem .modalButtons button:nth-child(1) {
+  color: var(--danger);
+}
+.listContent .listItem .modalButtons button:nth-child(2) {
+  color: var(--blue-400);
 }

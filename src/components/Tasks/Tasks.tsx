@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Trash } from "phosphor-react";
 import { Empty } from "../Empty";
 import { TaskHeader } from "../TaskHeader";
@@ -6,19 +7,21 @@ import { TaskProps } from "../../App";
 import styles from "./Tasks.module.css";
 
 interface TasksProps {
+  tasks: TaskProps[];
   hasTasks: boolean;
   qtdTaskCreated: number;
   qtdTasksChecked: number;
-  tasks: TaskProps[];
   onMarkToChecked: (item: TaskProps) => void;
+  onConfirmDelete: (id: string) => void;
   onDeleteTask: (id: string) => void;
 }
 
 export function Tasks({
+  tasks,
   hasTasks,
   qtdTaskCreated,
   qtdTasksChecked,
-  tasks,
+  onConfirmDelete,
   onMarkToChecked,
   onDeleteTask,
 }: TasksProps) {
@@ -39,23 +42,42 @@ export function Tasks({
 
               return (
                 <li key={item.id} className={styles.listItem}>
-                  <div>
-                    <label htmlFor={item.id}>
+                  <header>
+                    <label htmlFor={`checkbox${item.id}`}>
                       <input
                         type="checkbox"
-                        id={item.id}
+                        id={`checkbox${item.id}`}
                         checked={item.isChecked}
                         onChange={() => onMarkToChecked(item)}
                       />
-                      <span className={styles.checkmark}></span>
+                      <motion.span
+                        className={styles.checkmark}
+                        whileHover={{ scale: 1.3 }}
+                        whileTap={{ scale: 1.2 }}
+                        transition={{ duration: 0.1 }}
+                      ></motion.span>
                     </label>
                     <p className={!!checked ? styles.line : styles.listText}>
                       {item.content}
                     </p>
-                  </div>
-                  <button onClick={() => onDeleteTask(item.id)}>
-                    <Trash size={20} />
-                  </button>
+                  </header>
+                  <footer>
+                    <div
+                      id={`boxConfirm-${item.id}`}
+                      className={styles.modalButtons}
+                    >
+                      <button onClick={() => onConfirmDelete(item.id)}>
+                        Sim
+                      </button>
+                      <button onClick={() => onDeleteTask(item.id)}>Não</button>
+                    </div>
+                    <motion.button
+                      onClick={() => onDeleteTask(item.id)}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <Trash size={20} />
+                    </motion.button>
+                  </footer>
                 </li>
               );
             })}

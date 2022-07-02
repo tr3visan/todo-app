@@ -20,6 +20,7 @@ export function App() {
   const [tasks, setTasks] = useState<TaskProps[]>([]);
   const [qtdTaskCreated, setQtdTaskCreated] = useState(0);
   const [qtdTasksChecked, setQtdTasksCheked] = useState(0);
+  const [borderAlert, setBorderAlert] = useState(false);
 
   function generateId() {
     let idGenerated = [];
@@ -31,11 +32,13 @@ export function App() {
   }
 
   function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
+    setBorderAlert(false);
     event.target.setCustomValidity("");
     setContent(event.target.value);
   }
 
   function handleNewCommentInvalid(event: InvalidEvent<HTMLInputElement>) {
+    setBorderAlert(true);
     event.target.setCustomValidity("Esse campo é obrigatório!");
   }
 
@@ -50,7 +53,7 @@ export function App() {
     setContent("");
   }
 
-  function handleDeleteTask(id: string) {
+  function handleConfirmDeleteTask(id: string) {
     const tasksWithoutDeleted = tasks.filter((item) => item.id !== id);
     setTasks(tasksWithoutDeleted);
   }
@@ -62,6 +65,10 @@ export function App() {
       isChecked: !item.isChecked,
     };
     setTasks([...tasksWitoutChecked, newTask]);
+  }
+
+  function handleCloseModalButton(id: string) {
+    console.log("ok");
   }
 
   useEffect(() => {
@@ -79,18 +86,20 @@ export function App() {
 
       <FormTask
         value={content}
+        borderAlert={borderAlert}
         onCreateTask={handleCreateTask}
         onNewTaskChange={handleNewTaskChange}
         onValidateEmpty={handleNewCommentInvalid}
       />
 
       <Tasks
+        tasks={tasks}
         hasTasks={hasTasks}
         qtdTaskCreated={qtdTaskCreated}
         qtdTasksChecked={qtdTasksChecked}
-        tasks={tasks}
         onMarkToChecked={handleMarkToChecked}
-        onDeleteTask={handleDeleteTask}
+        onConfirmDelete={handleConfirmDeleteTask}
+        onDeleteTask={handleCloseModalButton}
       />
     </main>
   );

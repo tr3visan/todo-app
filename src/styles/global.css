@@ -38,3 +38,13 @@ textarea {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+@media (max-width: 526px) {
+  html,
+  body,
+  input,
+  button,
+  textarea {
+    font-size: 95%;
+  }
+}
