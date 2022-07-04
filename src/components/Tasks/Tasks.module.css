@@ -107,7 +107,5 @@
   height: 7px;
   border: solid var(--white);
   border-width: 0 1px 1px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
