@@ -1,0 +1,7 @@
+.active {
+  right: 16px;
+}
+
+.inactive {
+  right: -75px;
+}

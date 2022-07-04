@@ -14,6 +14,9 @@ interface TasksProps {
   qtdTasksChecked: number;
   onMarkToChecked: (item: TaskProps) => void;
   onDeleteTask: (id: string) => void;
+  onAskOpenModal: (index: number) => void;
+  onActiveModal: (index: number) => string;
+  onManagerAtiveTask: () => void;
 }
 
 export function Tasks({
@@ -23,6 +26,9 @@ export function Tasks({
   qtdTasksChecked,
   onMarkToChecked,
   onDeleteTask,
+  onAskOpenModal,
+  onActiveModal,
+  onManagerAtiveTask,
 }: TasksProps) {
   return (
     <article className={styles.listWrapper}>
@@ -36,7 +42,7 @@ export function Tasks({
           <Empty />
         ) : (
           <ul className={styles.listItems}>
-            {tasks.map((item) => {
+            {tasks.map((item, index) => {
               const { id, isChecked, content } = item;
 
               return (
@@ -62,9 +68,16 @@ export function Tasks({
                   </header>
 
                   <footer>
+                    <div
+                      className={`${styles.askModal} ${onActiveModal(index)}`}
+                    >
+                      <button onClick={() => onDeleteTask(id)}>Sim</button>
+                      <button onClick={() => onManagerAtiveTask()}>Não</button>
+                    </div>
                     <motion.button
-                      onClick={() => onDeleteTask(id)}
+                      onClick={() => onAskOpenModal(index)}
                       whileHover={{ scale: 1.2 }}
+                      className={styles.trash}
                     >
                       <Trash size={20} />
                     </motion.button>

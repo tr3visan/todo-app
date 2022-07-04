@@ -9,15 +9,26 @@ import { Header } from "./components/Header";
 import { FormTask } from "./components/FormTask";
 import { Tasks } from "./components/Tasks";
 
+import styles from "./App.module.css";
+
 export interface TaskProps {
   id: string;
   isChecked: boolean;
   content: string;
 }
 
+export interface ListOfTasks {
+  activeTask: TaskProps | null;
+  tasks: TaskProps[];
+}
+
 export function App() {
   const [content, setContent] = useState<string>("");
-  const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [task, setTask] = useState<TaskProps[]>([]);
+  const [listOfTasks, setListOfTasks] = useState<ListOfTasks>({
+    activeTask: null,
+    tasks: [],
+  } as ListOfTasks);
   const [qtdTaskCreated, setQtdTaskCreated] = useState(0);
   const [qtdTasksChecked, setQtdTasksCheked] = useState(0);
   const [borderAlert, setBorderAlert] = useState(false);
@@ -49,32 +60,61 @@ export function App() {
       isChecked: false,
       content: content,
     };
-    setTasks((prevState) => [...prevState, newTask]);
+    setTask((prevState) => [...prevState, newTask]);
     setContent("");
   }
 
+  function handleManagerActiveTask() {
+    setListOfTasks({ activeTask: null, tasks: task });
+  }
+
+  function handleOpenAskModal(index: number) {
+    setListOfTasks({ ...listOfTasks, activeTask: listOfTasks.tasks[index] });
+  }
+
+  function handleActiveModal(index: number) {
+    if (listOfTasks.activeTask === null) {
+      return styles.inactive;
+    }
+    if (listOfTasks.tasks[index] === listOfTasks.activeTask) {
+      return styles.active;
+    } else {
+      return styles.inactive;
+    }
+  }
+
   function handleOnDeleteTask(id: string) {
-    const tasksWithoutDeleted = tasks.filter((item) => item.id !== id);
-    setTasks(tasksWithoutDeleted);
+    const tasksWithoutDeleted = listOfTasks.tasks.filter(
+      (item) => item.id !== id
+    );
+    setTask(tasksWithoutDeleted);
   }
 
   function handleMarkToChecked(item: TaskProps) {
-    const tasksWitoutChecked = tasks.filter((task) => task !== item);
+    const tasksWitoutChecked = listOfTasks.tasks.filter(
+      (task) => task !== item
+    );
     const newTask = {
       ...item,
       isChecked: !item.isChecked,
     };
-    setTasks([...tasksWitoutChecked, newTask]);
+    setTask([...tasksWitoutChecked, newTask]);
   }
 
   useEffect(() => {
-    const qtdOfTasks = tasks.length;
-    const qtdOfTasksChecked = tasks.filter((item) => item.isChecked === true);
+    handleManagerActiveTask();
+  }, [task]);
+
+  useEffect(() => {
+    const qtdOfTasks = listOfTasks.tasks.length;
+    const qtdOfTasksChecked = listOfTasks.tasks.filter(
+      (item) => item.isChecked === true
+    );
     setQtdTasksCheked(qtdOfTasksChecked.length);
     setQtdTaskCreated(qtdOfTasks);
-  }, [tasks]);
+  }, [listOfTasks.tasks]);
 
-  const hasTasks = tasks.length === 0;
+  const hasTasks = listOfTasks.tasks.length === 0;
 
   return (
     <main>
@@ -89,12 +129,15 @@ export function App() {
       />
 
       <Tasks
-        tasks={tasks}
+        tasks={listOfTasks.tasks}
         hasTasks={hasTasks}
         qtdTaskCreated={qtdTaskCreated}
         qtdTasksChecked={qtdTasksChecked}
         onMarkToChecked={handleMarkToChecked}
         onDeleteTask={handleOnDeleteTask}
+        onAskOpenModal={handleOpenAskModal}
+        onActiveModal={handleActiveModal}
+        onManagerAtiveTask={handleManagerActiveTask}
       />
     </main>
   );

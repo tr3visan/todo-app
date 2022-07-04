@@ -44,7 +44,7 @@
   color: var(--gray-300);
 }
 
-.listContent .listItem button {
+.listContent .listItem footer button {
   background: transparent;
   border: 0;
   color: var(--gray-300);
@@ -108,4 +108,33 @@
   border: solid var(--white);
   border-width: 0 1px 1px 0;
   transform: rotate(45deg);
+}
+
+.askModal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--gray-700);
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+  position: absolute;
+  top: 15px;
+  right: -75px;
+  transition: right 0.2s ease-in-out;
+  z-index: 2;
+}
+
+.listContent .listItem .askModal button {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.listContent .listItem .askModal button:nth-of-type(1) {
+  color: var(--danger);
+}
+
+.listContent .listItem .askModal button:nth-of-type(2) {
+  color: var(--blue-600);
 }
