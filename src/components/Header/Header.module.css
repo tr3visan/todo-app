@@ -5,6 +5,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  flex-direction: column;
+}
+
+.header .vite {
+  color: var(--gray-300);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header .vite svg {
+  width: 1rem;
 }
 
 @media (max-width: 526px) {
