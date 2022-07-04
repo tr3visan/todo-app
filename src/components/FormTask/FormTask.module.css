@@ -49,6 +49,10 @@
   color: var(--blue-400);
 }
 
+.formWrapper button[type="submit"]:focus {
+  background-color: transparent;
+}
+
 @media (max-width: 526px) {
   .formWrapper {
     margin-bottom: 3rem;
