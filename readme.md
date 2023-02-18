@@ -2,6 +2,7 @@
 
 <div align="center">
   <strong>It's a simple UI todo-app</strong>
+  It's on! <a href="https://trevis-todo-app.netlify.app/" target="_blank" title="click here">click here!</a>
 </div>
 
 <br />
